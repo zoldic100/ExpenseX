@@ -1,45 +1,79 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function UserList() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+  const [url, setUrl] = useState("http://localhost:8000/get-all-users");
+  const [links, setLinks] = useState("");
+  const [pageLink, setPageLink] = useState([]);
 
-  useEffect(() => {
+  
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/get-all-users?page=2');
+        const response = await axios.get(url);
         setUsers(response.data.data.data);
-        console.log(response.data.data);
+       // console.log(response.data.data.links.url);
+        setLinks(response.data.data.links);
       } catch (error) {
-        setError('Error fetching users. Please try again.');
+        setError("Error fetching users. Please try again.");
       } finally {
         setLoading(false);
       }
     };
 
+  
+     useEffect(() => {
+        fetchUsers();
+      }, [url]);
     // Call the function to fetch users
-    fetchUsers();
-  }, []);
+    
+   // console.log(links);
+  useEffect(() => {
+    // Use a for loop to iterate over the array and add url values to pageLink
+    const newPageLinks = [];
+    for (let i = 1; i < links.length; i++) {
+        //not add the last element
+        if(!( i === (links.length -1)  )){
+            console.log(links.length -1);
+           newPageLinks.push(links[i].url);
+        }
+    }
 
+    // Update the state with the new pageLink values
+    setPageLink(newPageLinks);
+  }, [links]); // Run the effect whenever links change
+  function handleUrl(link) {
+    setUrl(link);
+
+  }
   return (
     <div>
       <h2>User List</h2>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       {users.length > 0 ? (
         <ul>
           {users.map((user) => (
             <li key={user.id}>
-              <strong>Name:</strong> {user.name}, <strong>Email:</strong> {user.email}
+              <strong>Name:</strong> {user.name}, <strong>Email:</strong>{" "}
+              {user.email}
             </li>
           ))}
         </ul>
       ) : (
         <p>No users available.</p>
       )}
+      <div>
+        <h3>Page Links:</h3>
+
+        {pageLink.map((link, index) => (
+          <button key={index} onClick={() => handleUrl(link)}>
+            {index+1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

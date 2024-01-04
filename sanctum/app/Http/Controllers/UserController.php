@@ -12,7 +12,7 @@ class UserController extends Controller
     {
         try {
             // Fetch all users with pagination
-            $users = User::select('id','name', 'email')->paginate(10);
+            $users = User::select('id','name', 'email')->paginate(2);
 
             return response()->json(['status' => 'success', 'data' => $users], 200);
         } catch (\Exception $e) {
