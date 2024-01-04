@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
+Route::post('/logout', function () {
+    Auth::guard('web')->logout();
+
+    return response()->json(['message' => 'Successfully logged out']);
+});
+
+Route::get('/get-all-users', [UserController::class, 'getAllUsers']);
+
 
 require __DIR__.'/auth.php';
