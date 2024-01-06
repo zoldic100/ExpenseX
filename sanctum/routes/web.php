@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+
 
 
 /*
@@ -26,6 +28,7 @@ Route::post('/logout', function () {
 });
 
 Route::get('/get-all-users', [UserController::class, 'getAllUsers']);
+Route::resource('products',ProductController::class);
 
 
 require __DIR__.'/auth.php';

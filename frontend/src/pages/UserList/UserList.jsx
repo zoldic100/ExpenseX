@@ -9,48 +9,44 @@ function UserList() {
   const [links, setLinks] = useState("");
   const [pageLink, setPageLink] = useState([]);
 
-  
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get(url);
-        setUsers(response.data.data.data);
-       // console.log(response.data.data.links.url);
-        setLinks(response.data.data.links);
-      } catch (error) {
-        setError("Error fetching users. Please try again.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(url);
+      setUsers(response.data.data.data);
+      setLinks(response.data.data.links);
+    } catch (error) {
+      setError("Error fetching users. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  
-     useEffect(() => {
-        fetchUsers();
-      }, [url]);
-    // Call the function to fetch users
-    
-   // console.log(links);
+  useEffect(() => {
+    fetchUsers();
+  }, [url]);
+  // Call the function to fetch users
+
   useEffect(() => {
     // Use a for loop to iterate over the array and add url values to pageLink
     const newPageLinks = [];
     for (let i = 1; i < links.length; i++) {
-        //not add the last element
-        if(!( i === (links.length -1)  )){
-            console.log(links.length -1);
-           newPageLinks.push(links[i].url);
-        }
+      //not add the last element
+      if (!(i === links.length - 1)) {
+        console.log(links.length - 1);
+        newPageLinks.push(links[i].url);
+      }
     }
 
     // Update the state with the new pageLink values
     setPageLink(newPageLinks);
   }, [links]); // Run the effect whenever links change
+  
   function handleUrl(link) {
     setUrl(link);
-
   }
   return (
     <div>
-      <h2>User List</h2>
+      <h2> User List</h2>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {users.length > 0 ? (
@@ -70,7 +66,7 @@ function UserList() {
 
         {pageLink.map((link, index) => (
           <button key={index} onClick={() => handleUrl(link)}>
-            {index+1}
+            {index + 1}
           </button>
         ))}
       </div>

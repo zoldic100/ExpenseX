@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import LogoutButton from "../../Logout";
-import UserList from "../UserList/UserList";
-const Home = () => {
-  const [user, setUser] = useState(null);
+const Products = () => {
+const [loading, setLoading] = useState(true);
+
+  const [products, setProducts] = useState(null);
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchProductData = async () => {
       try {
-        // Fetch User Data
-        const { data } = await axios.get("http://localhost:8000/api/user");
+        const { data } = await axios.get("http://localhost:8000/products");
+        console.log(data.data);
+        setProducts(data);
 
-        // Update User State
-        setUser(data);
-
-        console.log(data);
       } catch (error) {
         // Handle errors more effectively
         if (axios.isCancel(error)) {
@@ -32,26 +28,35 @@ const Home = () => {
           // Something happened in setting up the request that triggered an Error
           console.log("Error:", error.message);
         }
+      }finally {
+        setLoading(false);
       }
     };
 
     // Call the function to fetch user data
-    fetchUserData();
+    fetchProductData();
   }, []); // Empty dependency array means this effect runs once on mount
 
   return (
-    <>
+    <div>
+      {loading && <p>Loading...</p>}
       
-        <h2>Home</h2> 
-        <h3>{user && `welcome  ${user.name}`}</h3>
-        <LogoutButton />
-        <Link to={"/login"}>login</Link>{" "}
-     
-
-      <h2>All users</h2>
-      <UserList />
-    </>
+      {products? (
+        <ul>
+          {products.map((product) => (
+            <li key={product.id}>
+                <img width={200} src={ `http://localhost:8000/storage/${product.image}`} alt="" srcset="" />
+              <strong>Name:</strong> {product.name}, 
+              <strong>Email:</strong>{" "}
+              {product.description}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No products available.</p>
+      )}
+    </div>
   );
 };
 
-export default Home;
+export default Products;
