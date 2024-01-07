@@ -24,7 +24,7 @@ const Login = () => {
       });
 
   
-        navigate("/");
+        navigate("/user");
 
     } catch (error) {
       console.error("Login failed:", error);

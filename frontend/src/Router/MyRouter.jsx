@@ -1,7 +1,8 @@
 import React from "react";
-import { GuestLayout } from "../layouts";
+import { AuthLayout, GuestLayout } from "../layouts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Login, CreateProduct, Products } from "../pages";
+import { Home, Login, CreateProduct, Products, FetchExpenses, CreateExpense } from "../pages";
+
 
 const MyRouter = () => {
   return (
@@ -14,7 +15,12 @@ const MyRouter = () => {
             <Route path="/create-product" element={<CreateProduct />} />
             <Route path="/products" element={<Products />} />
           </Route>
-          <Route path="*" element={"<NoPage />"} />
+
+          <Route path="/user" element={<AuthLayout />}>
+            <Route index element={<FetchExpenses  />} />
+            <Route path="/user/create-expense" element={<CreateExpense />} />
+          </Route>
+          <Route path="*" element={"404"} />
         </Routes>
       </Router>
     </>

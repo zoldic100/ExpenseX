@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExpenseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -29,6 +30,8 @@ Route::post('/logout', function () {
 
 Route::get('/get-all-users', [UserController::class, 'getAllUsers']);
 Route::resource('products',ProductController::class);
-
-
+Route::resource('expenses', ExpenseController::class)->middleware('auth:sanctum');
+Route::get('/test', function() {
+    return auth()->user();
+})->middleware('auth:sanctum');
 require __DIR__.'/auth.php';
