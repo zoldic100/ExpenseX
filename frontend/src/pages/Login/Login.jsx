@@ -9,7 +9,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   async function onLogin(event) {
     event.preventDefault();
@@ -23,9 +23,7 @@ const Login = () => {
         password: form.password,
       });
 
-  
-        navigate("/user");
-
+      navigate("/user");
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -33,23 +31,30 @@ const Login = () => {
 
   return (
     <>
-
-      <form onSubmit={onLogin}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        <input type="submit" value="Login" />
+      <form onSubmit={onLogin} className="flex justify-center  align-middle ">
+        <div>
+          {" "}
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+        </div>
+        <div>
+         
+          <button>login</button>
+        </div>
       </form>
     </>
   );

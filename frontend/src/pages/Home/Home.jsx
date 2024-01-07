@@ -41,12 +41,9 @@ const Home = () => {
 
   return (
     <>
-      
-        <h2>Home</h2> 
+
         <h3>{user && `welcome  ${user.name}`}</h3>
-        <LogoutButton />
-        <Link to={"/login"}>login</Link>{" "}
-     
+
 
       <h2>All users</h2>
       <UserList />

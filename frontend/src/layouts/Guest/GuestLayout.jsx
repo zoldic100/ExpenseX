@@ -4,18 +4,16 @@ axios.defaults.withCredentials = true;
 import {Link, Outlet} from 'react-router-dom'
 
 import React from 'react'
+import { NavBar } from '../../components';
 
 const GuestLayout = () => {
   return (
     <>
-    <nav>
-      <ul>
-        <li><Link to={'/create-product'}  >Create Product </Link> </li>
-        <li><Link to={'/'}  >Home </Link> </li>
-      </ul>
-    </nav>
+    <NavBar/>
+    <main className='container mx-5'>
     <div>header</div>
     <Outlet/>
+    </main>
     <div>footer</div>
     </>
   )

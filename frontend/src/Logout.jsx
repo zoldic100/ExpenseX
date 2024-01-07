@@ -28,7 +28,7 @@ function LogoutButton() {
   return (
     <div>
       <button onClick={handleLogout}>Logout</button>
-      <p>{message}</p>
+      
     </div>
   );
 }

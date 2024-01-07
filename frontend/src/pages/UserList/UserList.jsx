@@ -45,14 +45,17 @@ function UserList() {
     setUrl(link);
   }
   return (
-    <div>
-      <h2> User List</h2>
+    <div className="text-center">
+      <h2 className="text-4xl p-3 t"> User List</h2>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      
+     
+      {error && <p className="text-red-500">{error}</p>}
+     
       {users.length > 0 ? (
-        <ul>
+        <ul className="text-center font-light">
           {users.map((user) => (
-            <li key={user.id}>
+            <li className="pb-4" key={user.id}>
               <strong>Name:</strong> {user.name}, <strong>Email:</strong>{" "}
               {user.email}
             </li>
@@ -61,7 +64,7 @@ function UserList() {
       ) : (
         <p>No users available.</p>
       )}
-      <div>
+      <div className="text-center">
         <h3>Page Links:</h3>
 
         {pageLink.map((link, index) => (
