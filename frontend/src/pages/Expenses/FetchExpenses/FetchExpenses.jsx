@@ -10,7 +10,6 @@ const [loading, setLoading] = useState(true);
     const fetchProductData = async () => {
       try {
         const  {data}  = await axios.get('http://localhost:8000/expenses');
-        console.log(data);
 
         setExpenses(data);
 

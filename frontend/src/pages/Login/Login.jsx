@@ -22,7 +22,12 @@ const Login = () => {
         email: form.email,
         password: form.password,
       });
+      const userData = await axios.get("http://localhost:8000/api/user");
 
+      let user_id = userData.data.id
+      let user_name = userData.data.name
+      window.localStorage.setItem('user_id',user_id)
+      window.localStorage.setItem('user_name',user_name)
       navigate("/user");
     } catch (error) {
       console.error("Login failed:", error);

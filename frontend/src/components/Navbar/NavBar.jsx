@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import LogoutButton from "../../Logout";
 
 const NavBar = () => {
+
   return (
     <>
       <nav className="bg-gray-800 p-4">
@@ -15,20 +16,33 @@ const NavBar = () => {
 
           {/* Navigation Links on the Right */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to={"/"} className="text-white">
-              Home
-            </Link>
+            {localStorage.getItem("user_id") !== null ? (
+              <>
+                <Link to={"/"} className="text-white">
+                  Home
+                </Link>
 
-            <Link to={"/create-product"} className="text-white">
-              product
-            </Link>
-            <Link to={"/user"} className="text-white">
-              expense
-            </Link>
-            <LogoutButton />
-            <Link to={"/login"} className="text-white">
-              <button>login</button>
-            </Link>
+                <Link to={"/user"} className="text-white">
+                  Expense
+                </Link>
+                <Link to={"/user/create-expense"} className="text-white">
+                  Create-expense
+                </Link>
+                <LogoutButton />
+              </>
+            ) : (
+              <>
+                <Link to={"/"} className="text-white">
+                  Home
+                </Link>
+                <Link to={"/create-product"} className="text-white">
+                  product
+                </Link>
+                <Link to={"/login"} className="text-white">
+                  <button>login</button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Hamburger Menu for Mobile */}

@@ -17,7 +17,7 @@ function LogoutButton() {
 
       // Update any state or display a success message
       setMessage('Successfully logged out');
-      console.log('Successfully logged out');
+      localStorage.clear();
       navigate('/login')
     } catch (error) {
       // Handle errors, display error message, etc.
