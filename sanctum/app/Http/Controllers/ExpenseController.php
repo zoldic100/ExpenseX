@@ -80,7 +80,7 @@ class ExpenseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+       
     }
 
     /**
@@ -90,12 +90,29 @@ class ExpenseController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Expense $expense)
     {
-        //
+        try {
+            // Find the expense by its ID
+
+            // Delete the expense
+            $expense->delete();
+
+            return response()->json([
+                'message' => 'Expense deleted successfully'
+            ], 200);
+
+        } catch (\Exception $e) {
+            // Log the error for debugging purposes
+            Log::error('Error deleting expense: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => 'Something went wrong!'
+            ], 500); // Use a 500 status code for server errors
+        }
     }
+    
 }

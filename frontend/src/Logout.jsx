@@ -27,7 +27,7 @@ function LogoutButton() {
 
   return (
     <div>
-      <button onClick={handleLogout}>Logout</button>
+      <button className='text-gray-100 hover:bg-purple-500' onClick={handleLogout}>Logout</button>
       
     </div>
   );

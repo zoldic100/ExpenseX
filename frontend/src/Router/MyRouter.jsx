@@ -20,7 +20,7 @@ const MyRouter = () => {
             <Route index element={<FetchExpenses  />} />
             <Route path="/user/create-expense" element={<CreateExpense />} />
           </Route>
-          <Route path="*" element={"404"} />
+                    <Route path="*" element={"404"} />
         </Routes>
       </Router>
     </>

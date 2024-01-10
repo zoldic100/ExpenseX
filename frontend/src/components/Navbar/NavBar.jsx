@@ -7,7 +7,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className="bg-gray-800 p-4">
+      <nav className="bg-gray-100 md:px-6 sm:p-3">
         <div className="container mx-auto flex justify-between items-center">
           {/* Logo on the Left */}
           <div className="flex items-center">
@@ -18,27 +18,27 @@ const NavBar = () => {
           <div className="hidden md:flex items-center space-x-4">
             {localStorage.getItem("user_id") !== null ? (
               <>
-                <Link to={"/"} className="text-white">
+                <Link to={"/"} className="text-gray-800">
                   Home
                 </Link>
 
-                <Link to={"/user"} className="text-white">
+                <Link to={"/user"} className="text-gray-800">
                   Expense
                 </Link>
-                <Link to={"/user/create-expense"} className="text-white">
+                <Link to={"/user/create-expense"} className="text-gray-800">
                   Create-expense
                 </Link>
                 <LogoutButton />
               </>
             ) : (
               <>
-                <Link to={"/"} className="text-white">
+                <Link to={"/"} className="text-gray-800">
                   Home
                 </Link>
-                <Link to={"/create-product"} className="text-white">
+                <Link to={"/create-product"} className="text-gray-800">
                   product
                 </Link>
-                <Link to={"/login"} className="text-white">
+                <Link to={"/login"} className="text-gray-800">
                   <button>login</button>
                 </Link>
               </>
