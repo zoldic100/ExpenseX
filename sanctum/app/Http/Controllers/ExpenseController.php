@@ -78,9 +78,9 @@ class ExpenseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Expense $expense)
     {
-       
+        return response()->json($expense, 200);
     }
 
     /**

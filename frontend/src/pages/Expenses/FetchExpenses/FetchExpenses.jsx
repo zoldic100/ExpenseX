@@ -95,9 +95,9 @@ const FetchExpenses = () => {
                       </button>
                   </span>
                   <span className="mr-5">
-                    <a href="/">
+                    <Link to={`expense/${expense.id}/edit`}>
                       <LuClipboardEdit className="text-xl font-md text-gray-500 hover:text-indigo-400" />
-                    </a>
+                    </Link>
                   </span>
                 </li>
               </ul>
@@ -105,7 +105,7 @@ const FetchExpenses = () => {
           ))}
         </ul>
       ) : (
-        <p>No expenses available.</p>
+        <p className="text-center pt-5 text-4xl font-bold">No expenses available.</p>
       )}
     </div>
   </div>

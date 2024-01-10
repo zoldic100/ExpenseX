@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthLayout, GuestLayout } from "../layouts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Login, CreateProduct, Products, FetchExpenses, CreateExpense } from "../pages";
+import { Home, Login, CreateProduct, Products, FetchExpenses, CreateExpense, UpdateExpenses } from "../pages";
 
 
 const MyRouter = () => {
@@ -19,6 +19,7 @@ const MyRouter = () => {
           <Route path="/user" element={<AuthLayout />}>
             <Route index element={<FetchExpenses  />} />
             <Route path="/user/create-expense" element={<CreateExpense />} />
+            <Route path="/user/expense/:id/edit" element={<UpdateExpenses />} />
           </Route>
                     <Route path="*" element={"404"} />
         </Routes>
