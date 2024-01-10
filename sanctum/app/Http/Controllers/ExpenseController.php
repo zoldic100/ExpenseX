@@ -86,9 +86,30 @@ class ExpenseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ExpenseRequest $request,Expense $expense)
     {
-        //
+        try {
+     
+
+            // Update the expense attributes
+            $expense->update([
+                'name' => $request->name,
+                'price' => $request->price,
+                'description' => $request->description,
+            ]);
+
+            return response()->json([
+                'message' => 'Expense updated successfully'
+            ], 200);
+
+        } catch (\Exception $e) {
+            // Log the error for debugging purposes
+            Log::error('Error updating expense: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => 'Something went wrong!'
+            ], 500); // Use a 500 status code for server errors
+        }
     }
     /**
      * Remove the specified resource from storage.
