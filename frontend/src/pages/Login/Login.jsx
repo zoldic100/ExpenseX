@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 const Login = () => {
@@ -59,10 +59,10 @@ const Login = () => {
             </div>
 
             <div className="mb-4">
-            <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm font-medium leading-6 text-gray-600">Password</label>
-          <div class="text-sm">
-            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+            <div className="flex items-center justify-between">
+          <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-600">Password</label>
+          <div className="text-sm">
+            <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
           </div>
           </div>
               <input
@@ -82,9 +82,9 @@ const Login = () => {
               Login
             </button>
           </form>
-          <p class="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-10 text-center text-sm text-gray-500">
       Not a member?
-      <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
+      <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
     </p>
         </div>
       </div>

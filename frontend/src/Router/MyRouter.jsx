@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthLayout, GuestLayout } from "../layouts";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Login, CreateProduct, Products, FetchExpenses, CreateExpense, UpdateExpenses } from "../pages";
+import { Home, Login,  FetchExpenses, CreateExpense, UpdateExpenses } from "../pages";
 
 
 const MyRouter = () => {
@@ -12,8 +12,6 @@ const MyRouter = () => {
           <Route path="/" element={<GuestLayout />}>
             <Route index element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/create-product" element={<CreateProduct />} />
-            <Route path="/products" element={<Products />} />
           </Route>
 
           <Route path="/user" element={<AuthLayout />}>

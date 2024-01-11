@@ -21,11 +21,14 @@ class ExpenseController extends Controller
     if ($user) {
         // Use the relationship to get expenses associated with the user
         $expenses = Expense::where('user_id', $user->id)->get();
+        $priceSum = Expense::where('user_id', $user->id)
+        ->sum('price');
+        $budget = $user->budget;
 
         // You can also use eager loading to load the expenses with additional information
         // $expenses = $user->expenses()->with('additionalRelation')->get();
 
-        return response()->json($expenses, 200);
+        return response()->json([$expenses,$priceSum,$budget], 200);
     }
 
     // If the user is not authenticated, return an appropriate response

@@ -7,13 +7,17 @@ const FetchExpenses = () => {
   const [loading, setLoading] = useState(true);
 
   const [expenses, setExpenses] = useState([]);
+  const [maxExpenses, setMaxExpense] = useState([]);
+  const [userBudget, setUserBudget] = useState([]);
 
   useEffect(() => {
     const fetchProductData = async () => {
       try {
         const { data } = await axios.get("http://localhost:8000/expenses");
-
-        setExpenses(data);
+        console.log(data[2]);
+        setExpenses(data[0]);
+        setMaxExpense(data[1]);
+        setUserBudget(data[2]);
       } catch (error) {
         // Handle errors more effectively
         if (axios.isCancel(error)) {
@@ -67,6 +71,17 @@ const FetchExpenses = () => {
       </p>
     }
     <div>
+    <div className=" flex justify-between text-center pb-5 px-6 gap-4 text-gray-100 font-bold text-lg">
+  <div className="w-1/3  h-fit py-2 px-3  bg-green-300 rounded-md">
+    <h3>Your Budget: {userBudget}Dh</h3>
+  </div>
+  <div className="w-1/3 h-fit py-2 px-3 bg-pink-600 rounded-md">
+  <h3>Your Expenses:  {maxExpenses} DH</h3>
+    </div>
+  <div className="w-1/3 h-fit py-2 px-3 bg-indigo-400 rounded-md">
+  <h3>Your Balanace:  {userBudget-maxExpenses} DH</h3>
+    </div>
+</div>
       {expenses.length > 0 ? (
         <ul id="expense-list">
           {expenses.map((expense) => (

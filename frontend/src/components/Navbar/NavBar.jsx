@@ -35,11 +35,8 @@ const NavBar = () => {
                 <Link to={"/"} className="text-gray-800">
                   Home
                 </Link>
-                <Link to={"/create-product"} className="text-gray-800">
-                  product
-                </Link>
-                <Link to={"/login"} className="text-gray-800">
-                  <button>login</button>
+                <Link to={"/login"} className="text-gray-100 font-medium  hover:text-gray-600 hover:bg-indigo-300 bg-indigo-500  px-3 py-2 rounded-xl">
+                  Login
                 </Link>
               </>
             )}
