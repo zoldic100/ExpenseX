@@ -1,15 +1,24 @@
 import React from "react";
+import { Hero } from "../../components";
+import { motion } from "framer-motion";
+
+
 const Home = () => {
- 
+  const containerVariants = {
 
+    exit:{
+      x:'-120vw',
+      transition: {ease: 'easeInOut'}
+    }
+  }
   return (
-    <>
-
-        <h3>Hello</h3>
-
-
-      <h2>All users</h2>
-    </>
+    <motion.div
+    variants={containerVariants}
+    exit='exit'
+    
+    >
+      <Hero />
+    </motion.div>
   );
 };
 

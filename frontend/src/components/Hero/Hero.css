@@ -1,0 +1,37 @@
+.hero h1{
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    
+    color: var(--greener-color);
+}
+
+
+.hero{
+  background-color: var(--hero-bg);
+}
+
+.greener-button {
+ 
+    background-color: var(--greener-color);
+    color: aliceblue;
+  
+  
+  }
+  .greener-button:hover {
+    background-color:aliceblue;
+    color: var(--greener-color);
+  
+  }
+  .gray-button {
+  
+    background-color: aliceblue;
+    color: var(--greener-color);
+  
+  }
+  .gray-button:hover {
+    background-color: var(--greener-color);
+    color: var(--main-color);
+  
+  }

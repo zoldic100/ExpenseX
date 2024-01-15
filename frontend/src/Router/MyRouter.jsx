@@ -1,27 +1,44 @@
 import React from "react";
 import { AuthLayout, GuestLayout } from "../layouts";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Login,  FetchExpenses, CreateExpense, UpdateExpenses } from "../pages";
+import {
 
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import {
+  Home,
+  Login,
+  FetchExpenses,
+  CreateExpense,
+  UpdateExpenses,
+} from "../pages";
+import { AnimatePresence } from "framer-motion";
 
 const MyRouter = () => {
+  let location =useLocation()
+  console.log(location);
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<GuestLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
-          </Route>
+      <AnimatePresence initial={false} >
+          <Routes location={location} key={location.key}>
+            <Route path="/" element={<GuestLayout />}>
+              <Route index element={<Home />} />
+              <Route path="/login" element={<Login />} />
+            </Route>
 
-          <Route path="/user" element={<AuthLayout />}>
-            <Route index element={<FetchExpenses  />} />
-            <Route path="/user/create-expense" element={<CreateExpense />} />
-            <Route path="/user/expense/:id/edit" element={<UpdateExpenses />} />
-          </Route>
-                    <Route path="*" element={"404"} />
-        </Routes>
-      </Router>
+            <Route path="/expense" element={<AuthLayout />}>
+              <Route index element={<FetchExpenses />} />
+              <Route
+                path="/expense/create-expense"
+                element={<CreateExpense />}
+              />
+              <Route path="/expense/:id/edit" element={<UpdateExpenses />} />
+            </Route>
+            <Route path="*" element={"404"} />
+          </Routes>
+        
+      </AnimatePresence>
     </>
   );
 };

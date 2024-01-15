@@ -3,6 +3,9 @@ import axios from "axios";
 import { AiOutlineDelete } from "react-icons/ai";
 import { LuClipboardEdit } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FlashCards } from "../../../components";
+
 const FetchExpenses = () => {
   const [loading, setLoading] = useState(true);
 
@@ -44,88 +47,106 @@ const FetchExpenses = () => {
     fetchProductData();
   }, []); // Empty dependency array means this effect runs once on mount
 
-  
-    
-      const hundleDelete = async (id) => {
-        try {
-          await axios.delete(`http://localhost:8000/expenses/${id}`);
+  const hundleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8000/expenses/${id}`);
 
-          let li = document.getElementById(id)
-          li.remove()
+      let li = document.getElementById(id);
+      li.remove();
 
-          let expenseList = document.getElementById('expense-list')
+      let expenseList = document.getElementById("expense-list");
 
-          if(expenseList.childNodes.length === 0){
-            expenseList.innerHTML='<li class=" text-center pt-5 text-4xl font-bold">No expenses available.</li>'
-          }
-
-        } catch (error) {
-          console.error('Error deleting expense:', error);
-          // Handle the error as needed
-        }
-      };
+      if (expenseList.childNodes.length === 0) {
+        expenseList.innerHTML =
+          '<li class=" text-center pt-5 text-4xl font-bold">No expenses available.</li>';
+      }
+    } catch (error) {
+      console.error("Error deleting expense:", error);
+      // Handle the error as needed
+    }
+  };
   return (
     <div>
-    {loading && <p className="text-4xl font-semibold">
-      Loading...
-      </p>
-    }
-    <div>
-    <div className=" flex justify-between text-center pb-5 px-6 gap-4 text-gray-100 font-bold text-lg">
-  <div className="w-1/3  h-fit py-2 px-3  bg-green-300 rounded-md">
-    <h3>Your Budget: {userBudget}Dh</h3>
-  </div>
-  <div className="w-1/3 h-fit py-2 px-3 bg-pink-600 rounded-md">
-  <h3>Your Expenses:  {maxExpenses} DH</h3>
-    </div>
-  <div className="w-1/3 h-fit py-2 px-3 bg-indigo-400 rounded-md">
-  <h3>Your Balanace:  {userBudget-maxExpenses} DH</h3>
-    </div>
-</div>
-      {expenses.length > 0 ? (
-        <ul id="expense-list">
-          {expenses.map((expense) => (
-            <li
-              className="bg-white rounded-xl shadow-xl px-4 py-5 mb-4"
-              key={expense.id}
-              id={expense.id}
+      {loading && <p className="text-4xl font-semibold">Loading...</p>}
+      <div>
+        {expenses.length > 0 ? (
+          <>
+            <motion.div
+              initial={{ x:-250}}
+              animate={{x:0}}
+              transition={{type:'spring', stiffness:'150'  }}
+
+              className=" flex justify-between text-center pb-5 px-6 gap-4 text-gray-100 font-bold text-lg"
             >
-              <ul className="flex justify-between items-center">
-                <li className="li ">
-                  <div className="font-bold text-lg">{expense.name}</div>
-                  <div className=" max-w-64 text-gray-500 text-xs">
-                    {expense.description.length > 60
-                      ? expense.description.slice(0, 60) + "..."
-                      : expense.description}
-                  </div>
-                </li>
-                <li className="flex justify-between items-center ">
-                  <span className="mr-5 font-semibold text-xl">{expense.price}</span>
-                  <span className="mx-3">
-                      <button  
-                      onClick={()=>{hundleDelete(expense.id)}}
-                      className=" bg-transparent hover:bg-transparent ">
-                      <AiOutlineDelete 
-                      className="text-xl font-md text-gray-500 hover:text-red-400" />
-                      </button>
-                  </span>
-                  <span className="mr-5">
-                    <Link to={`expense/${expense.id}/edit`}>
-                      <LuClipboardEdit className="text-xl font-md text-gray-500 hover:text-indigo-400" />
-                    </Link>
-                  </span>
-                </li>
-              </ul>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-center pt-5 text-4xl font-bold">No expenses available.</p>
-      )}
+              <FlashCards
+                classes={" bg-green-300"}
+                text={"Budget"}
+                price={userBudget}
+              />
+              <FlashCards
+                classes={" bg-pink-600"}
+                text={"Expenses"}
+                price={maxExpenses}
+              />
+              <FlashCards
+                classes={"bg-indigo-400"}
+                text={"Balanace"}
+                price={userBudget - maxExpenses}
+              />
+            </motion.div> 
+            <ul id="expense-list">
+              {expenses.map((expense) => (
+                <motion.li
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 2 }}
+                  whileHover={{ scale: 0.95, boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)'
+                  }}
+                  className="bg-white rounded-xl shadow-xl px-4 py-5 mb-4"
+                  key={expense.id}
+                  id={expense.id}
+                >
+                  <ul className="flex justify-between items-center">
+                    <li className="li">
+                      <div className="font-bold text-lg">{expense.name}</div>
+                      <div className=" max-w-64 text-gray-500 text-xs">
+                        {expense.description.length > 60
+                          ? expense.description.slice(0, 60) + "..."
+                          : expense.description}
+                      </div>
+                    </li>
+                    <li className="flex justify-between items-center ">
+                      <span className="mr-5 font-semibold text-xl">
+                        {expense.price}
+                      </span>
+                      <span className="mx-3">
+                        <button
+                          onClick={() => {
+                            hundleDelete(expense.id);
+                          }}
+                          className=" bg-transparent hover:bg-transparent "
+                        >
+                          <AiOutlineDelete className="text-xl font-md text-gray-500 hover:text-red-400" />
+                        </button>
+                      </span>
+                      <span className="mr-5">
+                        <Link to={`/expense/${expense.id}/edit`}>
+                          <LuClipboardEdit className="text-xl font-md text-gray-500 hover:text-indigo-400" />
+                        </Link>
+                      </span>
+                    </li>
+                  </ul>
+                </motion.li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p className="text-center pt-5 text-4xl font-bold">
+            No expenses available.
+          </p>
+        )}
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default FetchExpenses
-
+export default FetchExpenses;

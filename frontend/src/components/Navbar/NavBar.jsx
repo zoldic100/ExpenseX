@@ -2,30 +2,38 @@ import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import LogoutButton from "../../Logout";
-
+import { BsList, BsXLg } from "react-icons/bs";
 const NavBar = () => {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [currentIcon, setCurrentIcon] = useState(<BsList />);
 
+  const handleMenuToggle = () => {
+    setMenuOpen(!isMenuOpen);
+    setCurrentIcon(isMenuOpen ? <BsList /> : <BsXLg />);
+  };
   return (
     <>
-      <nav className="bg-gray-100 md:px-6 sm:p-3">
+      <nav className=" md:px-6 p-3 sm:p-3">
         <div className="container mx-auto flex justify-between items-center">
           {/* Logo on the Left */}
           <div className="flex items-center">
-            <img src={logo} alt="Logo" className="h-8 w-8 mr-2" />
+            <Link to={"/"}>
+              <img src={logo} alt="Logo" className="h-8 w-8 mr-2" />
+            </Link>
           </div>
 
           {/* Navigation Links on the Right */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden sm:flex items-center space-x-3">
             {localStorage.getItem("user_id") !== null ? (
               <>
                 <Link to={"/"} className="text-gray-800">
                   Home
                 </Link>
 
-                <Link to={"/user"} className="text-gray-800">
+                <Link to={"/expense"} className="text-gray-800">
                   Expense
                 </Link>
-                <Link to={"/user/create-expense"} className="text-gray-800">
+                <Link to={"/expense/create-expense"} className="text-gray-800">
                   Create-expense
                 </Link>
                 <LogoutButton />
@@ -35,25 +43,71 @@ const NavBar = () => {
                 <Link to={"/"} className="text-gray-800">
                   Home
                 </Link>
-                <Link to={"/login"} className="text-gray-100 font-medium  hover:text-gray-600 hover:bg-indigo-300 bg-indigo-500  px-3 py-2 rounded-xl">
+                <Link
+                  to={"/login"}
+                  className="nav-btn"
+                >
                   Login
+                </Link>
+                <Link
+                  to={"/login"}
+                  className="nav-btn"
+                >
+                  Sign in
                 </Link>
               </>
             )}
           </div>
 
           {/* Hamburger Menu for Mobile */}
-          <div className="md:hidden">
-            {/* Use your own menu icon here */}
+          <div className="sm:hidden">
             <button
               type="button"
-              className="text-white hover:text-gray-300 focus:outline-none focus:text-gray-300"
+              className="text-gray-600 text-2xl hover:text-gray-300 "
               aria-label="Toggle menu"
+              onClick={handleMenuToggle}
             >
-              Menu
+              {currentIcon}
             </button>
           </div>
+
         </div>
+        {isMenuOpen
+         && (
+          <div
+            className="text-sm relative 
+              "
+          >
+            {/* Your dropdown menu content goes here */}
+            <ul 
+            className="absolute z-50 top-0 right-0 p-3 rounded-md
+             bg-gray-50 border
+              border-black ">
+              <li className="">
+                {" "}
+                <Link to={"/"} className="text-gray-800">
+                  Home
+                </Link>
+              </li>
+
+              <li>
+                {" "}
+                <Link to={"/expense"} className="text-gray-800">
+                  Expense
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <Link to={"/expense/create-expense"} className="text-gray-800">
+                  Create-expense
+                </Link>
+              </li>
+              <li className="w-full">
+                <LogoutButton />
+              </li>
+            </ul>
+          </div>
+        )}
       </nav>
     </>
   );

@@ -5,12 +5,9 @@ axios.defaults.withCredentials = true;
 
 
 function App() {
-
  return(
   <>
-    
       <MyRouter/>
-     
     </>
   )
 }

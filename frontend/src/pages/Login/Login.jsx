@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 axios.defaults.withCredentials = true;
 const Login = () => {
@@ -28,15 +29,24 @@ const Login = () => {
       let user_name = userData.data.name;
       window.localStorage.setItem("user_id", user_id);
       window.localStorage.setItem("user_name", user_name);
-      navigate("/user");
+      navigate("/expense");
     } catch (error) {
       console.error("Login failed:", error);
     }
   }
+  const containerVariants = {
 
+    exit:{
+      x:'-120vw',
+      transition: {ease: 'easeInOut'}
+    }
+  }
   return (
     <>
-      <div className="flex items-center justify-center ">
+      <motion.div
+          variants={containerVariants}
+          exit='exit'
+       className="flex items-center justify-center ">
         <div className="bg-white p-8 rounded-lg shadow-xl w-96">
           <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
 
@@ -59,12 +69,22 @@ const Login = () => {
             </div>
 
             <div className="mb-4">
-            <div className="flex items-center justify-between">
-          <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-600">Password</label>
-          <div className="text-sm">
-            <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
-          </div>
-          </div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-600"
+                >
+                  Password
+                </label>
+                <div className="text-sm">
+                  <a
+                    href="#"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
+              </div>
               <input
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 value={form.password}
@@ -83,11 +103,16 @@ const Login = () => {
             </button>
           </form>
           <p className="mt-10 text-center text-sm text-gray-500">
-      Not a member?
-      <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
-    </p>
+            Not a member?
+            <a
+              href="#"
+              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >
+              Start a 14 day free trial
+            </a>
+          </p>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
