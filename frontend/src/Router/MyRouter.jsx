@@ -17,7 +17,6 @@ import { AnimatePresence } from "framer-motion";
 
 const MyRouter = () => {
   let location =useLocation()
-  console.log(location);
   return (
     <>
       <AnimatePresence initial={false} >

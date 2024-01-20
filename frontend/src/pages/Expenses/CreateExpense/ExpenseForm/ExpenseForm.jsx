@@ -25,7 +25,7 @@ const ExpenseForm = ({ userId }) => {
       data: bodyFormData,
     })
       .then(function (response) {
-        navigate("/user");
+        navigate("/expense");
       })
       .catch(function (error) {
         console.error("Error:", error);

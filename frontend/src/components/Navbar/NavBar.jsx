@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import LogoutButton from "../../Logout";
 import { BsList, BsXLg } from "react-icons/bs";
+
+
 const NavBar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [currentIcon, setCurrentIcon] = useState(<BsList />);
@@ -42,6 +44,9 @@ const NavBar = () => {
               <>
                 <Link to={"/"} className="text-gray-800">
                   Home
+                </Link>
+                <Link to={"/"} className="text-gray-800">
+            
                 </Link>
                 <Link
                   to={"/login"}

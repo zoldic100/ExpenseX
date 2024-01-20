@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AiOutlineDelete } from "react-icons/ai";
 import { LuClipboardEdit } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FlashCards } from "../../../components";
+import { hundleDelete } from "../DeleteExpense/HundleDeleteExpenses";
+import  { FetchExpByUserIdContext } from "../../../Api/ExpenseApi/FetchExpByUserId"
 
 const FetchExpenses = () => {
-  const [loading, setLoading] = useState(true);
+  const { myTest, boom } = useContext(FetchExpByUserIdContext);
+
+  console.log({myTest,boom});
+  
+    const [loading, setLoading] = useState(true);
 
   const [expenses, setExpenses] = useState([]);
   const [maxExpenses, setMaxExpense] = useState([]);
@@ -17,7 +23,7 @@ const FetchExpenses = () => {
     const fetchProductData = async () => {
       try {
         const { data } = await axios.get("http://localhost:8000/expenses");
-        console.log(data[2]);
+        
         setExpenses(data[0]);
         setMaxExpense(data[1]);
         setUserBudget(data[2]);
@@ -47,26 +53,9 @@ const FetchExpenses = () => {
     fetchProductData();
   }, []); // Empty dependency array means this effect runs once on mount
 
-  const hundleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:8000/expenses/${id}`);
-
-      let li = document.getElementById(id);
-      li.remove();
-
-      let expenseList = document.getElementById("expense-list");
-
-      if (expenseList.childNodes.length === 0) {
-        expenseList.innerHTML =
-          '<li class=" text-center pt-5 text-4xl font-bold">No expenses available.</li>';
-      }
-    } catch (error) {
-      console.error("Error deleting expense:", error);
-      // Handle the error as needed
-    }
-  };
   return (
     <div>
+      
       {loading && <p className="text-4xl font-semibold">Loading...</p>}
       <div>
         {expenses.length > 0 ? (
@@ -95,7 +84,8 @@ const FetchExpenses = () => {
               />
             </motion.div> 
             <ul id="expense-list">
-              {expenses.map((expense) => (
+            jj {myTest + boom }             
+             {expenses.map((expense) => (
                 <motion.li
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 2 }}

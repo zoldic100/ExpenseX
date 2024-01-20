@@ -3,6 +3,7 @@ axios.defaults.withCredentials = true;
 
 import React from 'react'
 import { Container, Footer, NavBar } from '../../components';
+import FetchExpByUserId from '../../Api/ExpenseApi/FetchExpByUserId';
 
 
 const AuthLayout = () => {
@@ -12,7 +13,8 @@ const AuthLayout = () => {
     <>
     <>
     <NavBar/>
-    <Container />
+    <FetchExpByUserId><Container /></FetchExpByUserId>
+    
     <Footer/>
     </>
     </>
